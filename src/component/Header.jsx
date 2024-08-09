@@ -7,13 +7,16 @@ import { Button } from '@/components/ui/button';
 export default function Header() {
   const [show, setShow] = useState(true);
   const [scrollPos, setScrollPos] = useState(0);
+  const [isTop, setIsTop] = useState(true);
 
   const pathname = usePathname();
-  // console.log(pathname);
+
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
     setShow(scrollPos > currentScrollPos || currentScrollPos < 10);
     setScrollPos(currentScrollPos);
+
+    setIsTop(currentScrollPos === 0);
   };
 
   useEffect(() => {
@@ -22,7 +25,11 @@ export default function Header() {
   }, [scrollPos]);
 
   return (
-    <header className='border-secondary-foreground fixed left-0 right-0 top-0 z-10 border-b-2 bg-white bg-opacity-90'>
+    <header
+      className={`fixed left-0 right-0 top-0 z-10 transition-transform duration-300 ease-in-out ${
+        show ? 'translate-y-0 transform' : '-translate-y-full transform'
+      } ${isTop ? 'bg-opacity-100' : 'bg-opacity-70'} border-secondary-foreground border-b-2 bg-white`}
+    >
       <div className='container mx-auto flex h-16 justify-between'>
         <a
           rel='noopener noreferrer'
