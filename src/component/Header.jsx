@@ -1,15 +1,25 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+
+const navbarContent = [
+  {
+    id: 'banner',
+    name: 'Banner',
+  },
+  {
+    id: 'listPost',
+    name: 'Post List',
+  },
+];
 
 export default function Header() {
   const [show, setShow] = useState(true);
   const [scrollPos, setScrollPos] = useState(0);
   const [isTop, setIsTop] = useState(true);
 
-  const pathname = usePathname();
+  const [activeState, setActiveState] = useState();
 
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
@@ -28,7 +38,7 @@ export default function Header() {
     <header
       className={`fixed left-0 right-0 top-0 z-10 transition-transform duration-300 ease-in-out ${
         show ? 'translate-y-0 transform' : '-translate-y-full transform'
-      } ${isTop ? 'bg-opacity-100' : 'bg-opacity-70'} border-secondary-foreground border-b-2 bg-white`}
+      } ${isTop ? 'bg-opacity-100' : 'bg-opacity-50'} bg-orange-500`}
     >
       <div className='container mx-auto flex h-16 justify-between'>
         <a
@@ -40,26 +50,23 @@ export default function Header() {
           LOGO
         </a>
         <ul className='hidden items-stretch space-x-3 md:flex'>
-          <li className='flex items-center justify-center'>
-            <Button variant={'link'} className='text-lg'>
-              Link
-            </Button>
-          </li>
-          <li className='flex items-center justify-center'>
-            <Button variant={'link'} className='text-lg'>
-              Link
-            </Button>
-          </li>
-          <li className='flex items-center justify-center'>
-            <Button variant={'link'} className='text-lg'>
-              Link
-            </Button>
-          </li>
-          <li className='flex items-center justify-center'>
-            <Button variant={'link'} className='text-lg'>
-              Link
-            </Button>
-          </li>
+          {navbarContent.map((content) => {
+            return (
+              <li className='flex items-center justify-center'>
+                <a
+                  href={`#${content.id}`}
+                  onClick={() => setActiveState(content.id)}
+                >
+                  <Button
+                    variant={'link'}
+                    className={`text-lg ${activeState == content.id ? 'text-primary underline underline-offset-4' : null}`}
+                  >
+                    {content.name}
+                  </Button>
+                </a>
+              </li>
+            );
+          })}
         </ul>
         <button className='flex justify-end p-4 md:hidden'>
           <svg

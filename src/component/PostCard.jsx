@@ -9,7 +9,7 @@ const DateComponent = (dateFromComponent) => {
 
 export default function PostCard(props) {
   const { title, postDate, image } = props;
-  // console.log(image[0].file_name);
+
   const formatedDate = DateComponent(postDate);
 
   return (
@@ -17,7 +17,6 @@ export default function PostCard(props) {
       <figure>
         <img
           src='https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp'
-          // src={image[0].url}
           alt='Shoes'
         />
       </figure>

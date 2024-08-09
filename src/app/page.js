@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Banner from '@/component/Banner';
 import ListPost from '@/component/ListPost';
 

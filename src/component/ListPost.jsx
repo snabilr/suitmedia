@@ -43,6 +43,9 @@ export default function ListPost() {
   const { postData, postLoading } = useGetPost(currentPage, pageSize, sort);
   const dataPostFromAPI = postData?.data?.data;
   const totalPageFromAPI = postData?.data?.meta?.last_page;
+  const fromPost = postData?.data?.meta?.from;
+  const toPost = postData?.data?.meta?.to;
+  const totalPost = postData?.data?.meta?.total;
 
   const [totalPage, setTotalPage] = useState();
 
@@ -88,11 +91,14 @@ export default function ListPost() {
   if (postLoading) return <Loading />;
 
   return (
-    <div className='flex w-full flex-col items-center justify-between gap-10 bg-red-500 p-20'>
-      <div className='flex w-full items-center justify-between bg-red-500'>
-        <div>Showing 1-10 of 100</div>
-        <div className='flex gap-10 bg-green-400'>
-          <div className='flex items-center justify-between bg-blue-200'>
+    <div
+      id='listPost'
+      className='flex w-full flex-col items-center justify-between gap-10 p-20'
+    >
+      <div className='flex w-full items-center justify-between'>
+        <div>{`Showing ${fromPost}-${toPost} of ${totalPost}`}</div>
+        <div className='flex gap-10'>
+          <div className='flex items-center justify-between'>
             <div>Show per page:</div>
             <select
               className='select select-bordered m-1 flex w-[150px] max-w-xs justify-between rounded-full border-2 border-black bg-white text-black hover:bg-slate-200'
@@ -106,7 +112,7 @@ export default function ListPost() {
               ))}
             </select>
           </div>
-          <div className='flex items-center justify-between bg-blue-200'>
+          <div className='flex items-center justify-between'>
             <div>Sort by:</div>
             <select
               className='select select-bordered m-1 flex w-[150px] max-w-xs justify-between rounded-full border-2 border-black bg-white text-black hover:bg-slate-200'
@@ -128,7 +134,7 @@ export default function ListPost() {
             key={post?.id}
             title={post.title}
             postDate={post.published_at}
-            image={post.medium_image}
+            image={post.small_image[0]}
           />
         ))}
       </div>
