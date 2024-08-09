@@ -1,7 +1,7 @@
 'use client';
 
-import Banner from '@/component/Banner';
-import ListPost from '@/component/ListPost';
+import Banner from '@/components/Banner';
+import ListPost from '@/components/ListPost';
 
 export default function Home() {
   return (
