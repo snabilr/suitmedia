@@ -1,6 +1,5 @@
 'use client';
 
-import { RiArrowDownSFill } from 'react-icons/ri';
 import PostCard from './PostCard';
 import { useGetPost } from '@/helpers/post/hooks/userGetPost';
 import { useEffect, useState } from 'react';
